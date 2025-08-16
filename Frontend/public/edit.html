@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit PDF - Convertio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* public/style.css */
+
+        /* General Body and Layout */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            /* Stacks header, main, footer vertically */
+            min-height: 100vh;
+            /* Ensures the body takes at least the full viewport height */
+            background-color: #fcfbfb;
+            /* A consistent dark background for the entire application */
+            color: #f2f2f2;
+            /* Default light text color */
+        }
+
+        /* Header (Navbar) */
+
+
+        /* Main Content Area Styling (for pages like Edit PDF) */
+        main {
+            flex-grow: 1;
+            /* Allows main content to take available space, pushing footer down */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 30px 20px;
+            background-color: #222;
+            /* Dark background for conversion sections */
+            color: #f2f2f2;
+            /* Light text color for these sections */
+        }
+
+        /* Converter Section Styles (Used for Edit PDF upload page) */
+        .converter-content-edit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            background-color: #333;
+            /* Darker background for the content box */
+            padding: 60px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .edit-text-section {
+            text-align: left;
+            flex-basis: 50%;
+            max-width: 450px;
+        }
+
+        .edit-text-section h2 {
+            font-size: 2.5em;
+            /* Larger heading */
+            margin-bottom: 15px;
+            color: #f2f2f2;
+        }
+
+        .edit-text-section p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .drop-area-edit {
+            border: none;
+            /* No border as per image */
+            background-color: transparent;
+            /* Transparent background */
+            padding: 0;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: auto;
+            color: #666;
+        }
+
+        .drop-area-edit .fas {
+            font-size: 4em;
+            margin-bottom: 15px;
+            color: #FF5733;
+            /* Icon color from your image */
+        }
+
+        .drop-area-edit p {
+            margin: 5px 0;
+            color: #f2f2f2;
+            /* Light text color for "Select PDF file" and "or drop PDF here" */
+        }
+
+        .drop-area-edit .add-files-btn {
+            background-color: #3c8fe7;
+            /* Red button color */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 20px;
+            transition: background-color 0.2s ease;
+        }
+
+        .drop-area-edit .add-files-btn:hover {
+            background-color: #c0392b;
+        }
+
+        /* Processing and Error States */
+        .conversion-processing-state,
+        .conversion-error-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+            border-radius: 8px;
+            background-color: #444;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .conversion-processing-state .fas.fa-spinner,
+        .conversion-error-state .fas.fa-times-circle {
+            font-size: 3em;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+
+        .conversion-processing-state h4,
+        .conversion-error-state h4 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .conversion-processing-state p,
+        .conversion-error-state p {
+            font-size: 1em;
+            color: #ccc;
+        }
+
+        .conversion-error-state .try-again-button {
+            background-color: #7B3FEF;
+            /* Purple try again button */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.2s ease;
+        }
+
+        .conversion-error-state .try-again-button:hover {
+            background-color: #5d2fab;
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9em;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .site-footer p {
+            margin: 5px 0;
+        }
+
+        .site-footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.2s ease;
+        }
+
+        .site-footer a:hover {
+            color: #7B3FEF;
+        }
+
+        /* Main Content Area Styling - MODIFIED */
+    </style>
+</head>
+
+<body>
+    <header class="navbar">
+        <a href="index.html" style="text-decoration: none;">
+            <div class="logo">
+                <img src="pic/log.avif" alt="Logo" />
+                <span style="color:#ffffff">OmniConvert</span>
+            </div>
+        </a>
+
+
+        <nav class="menu">
+            <a href="merge.html">MERGE</a>
+            <a href="split.html">SPLIT </a>
+            <a href="compress.html">COMPRESS </a>
+            <a href="edit.html">EDIT</a>
+            <!-- <a href="#">ALL PDF TOOLS ▾</a> -->
+        </nav>
+
+        <div class="user-actions">
+            <a href="#" class="login">Login</a>
+            <a href="#" class="signup">Sign up</a>
+            <div style="color: #1a1a1a;">⋮⋮<br />⋮⋮</div>
+        </div>
+
+    </header>
+
+    <main style="background: #fffdfd" class="converter-section">
+        <div class="converter-content-edit" id="editContainer">
+            <div class="edit-text-section">
+                <h2>File Editor</h2>
+                <p>Edit File by adding text, shapes, comments and highlights. Your secure and simple tool to edit PDF.
+                </p>
+            </div>
+
+            <div class="drop-area-edit" id="editDropArea">
+
+
+                <button class="add-files-btn" id="addEditFileBtn">Select File</button>
+                <p style="margin-top: 10px;">or drop File here</p>
+                <input type="file" id="editFileInput" accept="application/pdf" style="display: none;">
+            </div>
+
+            <div id="editProcessingState" class="conversion-processing-state" style="display: none;">
+                <i class="fas fa-spinner fa-spin"></i>
+                <h4>Uploading PDF...</h4>
+                <p>Please wait while your PDF is being prepared for editing.</p>
+            </div>
+
+            <div id="editErrorState" class="conversion-error-state" style="display: none;">
+                <i class="fas fa-times-circle"></i>
+                <h4>Error!</h4>
+                <p id="editErrorMessage"></p>
+                <button class="try-again-button" id="tryEditAgainBtn">Try Again</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 File Converter. All rights reserved.</p>
+        <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Contact Us</a></p>
+    </footer>
+
+    <script>
+        // Get DOM elements
+        const addEditFileBtn = document.getElementById('addEditFileBtn');
+        const editFileInput = document.getElementById('editFileInput');
+        const editDropArea = document.getElementById('editDropArea');
+        const editProcessingState = document.getElementById('editProcessingState');
+        const editErrorState = document.getElementById('editErrorState');
+        const editErrorMessage = document.getElementById('editErrorMessage');
+        const tryEditAgainBtn = document.getElementById('tryEditAgainBtn');
+        const editContainer = document.getElementById('editContainer'); // The main container for states
+
+        // Function to show different UI states
+        function showUIState(state) {
+            editDropArea.style.display = 'none';
+            editProcessingState.style.display = 'none';
+            editErrorState.style.display = 'none';
+
+            if (state === 'select') {
+                editDropArea.style.display = 'flex'; // Use flex for drop area as it contains multiple elements
+            } else if (state === 'processing') {
+                editProcessingState.style.display = 'flex';
+            } else if (state === 'error') {
+                editErrorState.style.display = 'flex';
+            }
+        }
+
+        function showEditError(message) {
+            editErrorMessage.textContent = message;
+            showUIState('error');
+        }
+
+        // Function to upload file and redirect
+        async function uploadFileAndRedirect(file) {
+            if (!file) {
+                showEditError('No file selected.');
+                return;
+            }
+
+            if (file.type !== 'application/pdf') {
+                showEditError('Please select a PDF file.');
+                return;
+            }
+
+            showUIState('processing'); // Show processing state
+
+            const formData = new FormData();
+            formData.append('pdfFile', file); // 'pdfFile' must match the field name in server.js multer setup
+
+            try {
+                const response = await fetch('/upload-for-edit', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'File upload failed.');
+                }
+
+                const data = await response.json();
+                const fileId = data.fileId;
+
+                // Redirect to the editor interface with the fileId
+                window.location.href = `/editor.html?fileId=${fileId}`;
+
+            } catch (error) {
+                console.error('Upload error:', error);
+                showEditError('Error uploading PDF: ' + error.message);
+            }
+        }
+
+        // Event Listeners
+
+        // Click "Select PDF" button to trigger hidden file input
+        addEditFileBtn.addEventListener('click', () => {
+            editFileInput.click();
+        });
+
+        // Listen for file selection changes from the hidden input
+        editFileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                uploadFileAndRedirect(file);
+            }
+            // Clear the input value so the same file can be selected again if needed
+            event.target.value = '';
+        });
+
+        // Drag and Drop functionality
+        editDropArea.addEventListener('dragover', (event) => {
+            event.preventDefault(); // Prevent default to allow drop
+            editDropArea.classList.add('drag-over'); // Optional: Add a class for visual feedback
+        });
+
+        editDropArea.addEventListener('dragleave', () => {
+            editDropArea.classList.remove('drag-over');
+        });
+
+        editDropArea.addEventListener('drop', (event) => {
+            event.preventDefault();
+            editDropArea.classList.remove('drag-over');
+            const file = event.dataTransfer.files[0];
+            if (file) {
+                uploadFileAndRedirect(file);
+            }
+        });
+
+        // "Try Again" button in error state
+        tryEditAgainBtn.addEventListener('click', () => {
+            showUIState('select'); // Go back to the file selection state
+        });
+
+        // Initial state when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            showUIState('select');
+        });
+    </script>
+    <script src="authUI.js"></script>
+
+</body>
+
+</html>

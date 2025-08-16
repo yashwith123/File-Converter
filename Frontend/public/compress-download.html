@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Compressed File - Convertio</title>
+    <!-- Link to your main CSS file -->
+    <link rel="stylesheet" href="style.css">
+     <link rel="stylesheet" href="style1.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Basic styling for the layout and elements, integrate into your style.css */
+        body {
+            font-family: 'Inter', sans-serif; /* Using Inter font as per instructions */
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .download-container {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            width: 100%;
+            max-width: 650px; /* Wider container */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
+        .download-title {
+            font-size: 2.2em; /* Larger title */
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        .download-btn {
+            background-color: #3586dc; /* Red like iLovePDF */
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none; /* For the <a> tag */
+            display: inline-flex; /* Allows icon and text to align */
+            align-items: center;
+            gap: 10px; /* Space between icon and text */
+            margin-bottom: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .download-btn:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+        .download-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .file-info {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center; /* Center buttons */
+        }
+        .action-buttons button {
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 50%; /* Make them circular */
+            width: 50px; /* Slightly larger buttons */
+            height: 50px;
+            font-size: 1.3em; /* Larger icons */
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            color: #555;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .action-buttons button:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+        }
+        .action-buttons button:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background-color: #222;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9em;
+            width: 100%;
+        }
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 10px;
+            border-radius: 3px;
+            transition: color 0.3s ease;
+        }
+        footer a:hover {
+            color: #66b3ff;
+        }
+
+        
+    </style>
+</head>
+<body>
+ <header class="navbar">
+        <div class="logo">
+            <!-- <a href="index.html"> -->
+                <img src="pic/logo.png" alt="Logo" />
+                <span  class="titl">Convertio</span>
+            <!-- </a> -->
+        </div>
+        <nav class="menu">
+            <a href="/merge.html">MERGE</a>
+            <a href="/split.html">SPLIT</a>
+            <a href="/compress.html">COMPRESS</a>
+             <a href="/edit.html">EDIT</a>
+        </nav>
+        <div class="user-actions">
+            <a href="#" class="login">Login</a>
+            <a href="#" class="signup">Sign up</a>
+            <div style="color: #222;">⋮⋮<br/>⋮⋮</div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="download-container">
+            <h2 class="download-title">PDFs have been compressed!</h2>
+            <p class="file-info" id="originalSizeInfo"></p>
+            <p class="file-info" id="compressedSizeInfo"></p>
+            <a href="#" class="download-btn" id="downloadCompressedBtn" download>
+                <i class="fas fa-download"></i> Download compressed PDF
+            </a>
+            <div class="action-buttons">
+                <!-- Example buttons like iLovePDF, you can link these to other features -->
+                <button title="Share"><i class="fas fa-share-alt"></i></button>
+                <button title="Link"><i class="fas fa-link"></i></button>
+                <button title="Other Tools"><i class="fas fa-th-large"></i></button>
+                <button title="Delete"><i class="fas fa-trash-alt"></i></button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 File Converter. All rights reserved.</p>
+        <p>
+            <a href="/privacy-policy.html">Privacy Policy</a> |
+            <a href="/terms-of-service.html">Terms of Service</a> |
+            <a href="/contact.html">Contact Us</a>
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const downloadCompressedBtn = document.getElementById('downloadCompressedBtn');
+            const originalSizeInfo = document.getElementById('originalSizeInfo');
+            const compressedSizeInfo = document.getElementById('compressedSizeInfo');
+
+            // Retrieve the compressed file data from sessionStorage
+            const compressedFileData = JSON.parse(sessionStorage.getItem('compressedFile'));
+
+            if (compressedFileData) {
+                // Set the download link's href and filename
+                downloadCompressedBtn.href = compressedFileData.downloadUrl;
+                downloadCompressedBtn.setAttribute('download', compressedFileData.compressedName); // Set filename for download
+
+                // Helper function to format file sizes
+                const formatBytes = (bytes, decimals = 2) => {
+                    if (bytes === 0) return '0 Bytes';
+                    const k = 1024;
+                    const dm = decimals < 0 ? 0 : decimals;
+                    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+                    const i = Math.floor(Math.log(bytes) / Math.log(k));
+                    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+                };
+
+                // Display original and compressed file sizes
+                originalSizeInfo.textContent = `Original Size: ${formatBytes(compressedFileData.originalSize)}`;
+                compressedSizeInfo.textContent = `Compressed Size: ${formatBytes(compressedFileData.compressedSize)}`;
+
+            } else {
+                // Fallback if no data is found (e.g., user directly navigated to this page)
+                originalSizeInfo.textContent = 'No compressed file information available.';
+                compressedSizeInfo.style.display = 'none'; // Hide compressed size info
+                downloadCompressedBtn.style.display = 'none'; // Hide download button
+            }
+
+            // Optional: You might want to clear sessionStorage after the download link is presented
+            // depending on your application's flow and data retention policy.
+            // sessionStorage.removeItem('compressedFile');
+            // sessionStorage.removeItem('fileToCompress');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ConvertFiles - Online File Converter</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+  <link rel="stylesheet" href="style11.css" />
+
+</head>
+
+
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <img src="pic/log.avif" alt="Logo" />
+      <span> OmniConvert</span>
+    </div>
+
+    <nav class="menu">
+      <a href="merge.html">MERGE</a>
+      <a href="split.html">SPLIT </a>
+      <a href="compress.html">COMPRESS </a>
+      <a href="edit.html">EDIT</a>
+      <!-- <a href="#">ALL PDF TOOLS ▾</a> -->
+    </nav>
+
+    <div class="user-actions">
+      <a href="#" class="login">Login</a>
+      <a href="#" class="signup">Sign up</a>
+      <div class="grid-icon">⋮⋮<br />⋮⋮</div>
+    </div>
+
+  </header>
+
+  <section class="converter-section">
+    <div class="converter-content">
+      <div class="converter-text">
+        <h2>File Converter</h2>
+        <p>
+          Convertio is an online file converter. We support nearly all audio, video,
+          document, ebook, archive, image, spreadsheet, and presentation formats.
+          To get started, use the button below and select files to convert from your computer.
+        </p>
+      </div>
+      <div class="converter-options">
+        <!-- <label>convert</label>
+      <select>
+        <option>...</option>
+      </select>
+      <span>to</span>
+      <select>
+        <option>...</option>
+      </select> -->
+      </div>
+    </div>
+
+  </section>
+
+
+  <main class="container">
+    <h1>Online File Converter</h1>
+    <p>Select File to Convert</p>
+
+    <form id="uploadForm" action="http://localhost:3000/upload-convert" method="POST" enctype="multipart/form-data">
+      <div class="upload-box">
+        <div class="upload-area">
+          <div class="upload-icon">⬆️</div>
+          <p>Drag your file here to upload.</p>
+          <div class="divider">OR</div>
+
+          <label class="file-label">
+            <input type="file" id="fileInput" name="file" hidden />
+            <button type="button" class="file-button" id="chooseFileBtn">Choose File</button>
+          </label>
+
+          <p id="fileName" class="note">Up to 250MB</p>
+
+          <!-- <button type="submit" class="file-button" style="margin-top: 10px;">Convert File</button> -->
+        </div>
+      </div>
+    </form>
+
+
+  </main>
+  <section class="instruction-section">
+    <h2>How to Convert Your Files</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="step-number">1</span>
+        <p><strong>Upload your file</strong> – Click the upload button and choose the file you want to convert (e.g.,
+          JPG, PNG, DOCX, etc.).</p>
+      </div>
+      <div class="step">
+        <span class="step-number">2</span>
+        <p><strong>Choose output format</strong> – Select the format you want to convert your file into (e.g., PDF).</p>
+      </div>
+      <div class="step">
+        <span class="step-number">3</span>
+        <p><strong>Download your file</strong> – Once the conversion is complete, download the file directly to your
+          device.</p>
+      </div>
+    </div>
+  </section>
+  <section class="converter-categories">
+    <h2>File Converter Categories</h2>
+    <div class="category-grid">
+      <div class="category-item">
+        <img src="pic/archive.webp" alt="Archive Converter">
+        <p>Archive Converter</p>
+      </div>
+      <div class="category-item">
+        <img src="pic/doc.png" alt="Archive Converter">
+        <p>Document Converter</p>
+      </div>
+      <div class="category-item">
+        <img src="pic/ppt.webp" alt="Presentation Converter">
+        <p>Presentation Converter</p>
+      </div>
+      <div class="category-item">
+        <img src="pic/ebbok.jpg" alt="eBook Converter">
+        <p>eBook Converter</p>
+      </div>
+      <div class="category-item">
+        <img src="pic/word.jpg" alt="eBook Converter">
+        <p>Word Converter</p>
+      </div>
+      <div class="category-item">
+        <img src="pic/image.png" alt="Image Converter">
+        <p>Image Converter</p>
+      </div>
+      <div class="category-item">
+        <img src="pic/audio.jpg" alt="Audio Converter">
+        <p>Audio Converter</p>
+      </div>
+      <div class="category-item">
+        <img src="pic/video.299590f0-939e-464c-8fe0-dacf80abdf6e" alt="Video Converter">
+        <p>Video Converter</p>
+      </div>
+      <div class="category-item">
+        <img src="pic/other.jpg" alt="Other Converter">
+        <p>Other Converter</p>
+
+      </div>
+      <div class="category-item">
+        <img src="pic/cad.png" alt="eBook Converter">
+        <p>CAD Converter</p>
+      </div>
+    </div>
+  </section>
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>&copy; 2025 File Converter. All rights reserved.</p>
+      <p>
+        <a href="#">Privacy Policy</a> |
+        <a href="#">Terms of Service</a> |
+        <a href="#">Contact Us</a>
+      </p>
+    </div>
+  </footer>
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Login</h2>
+      <form id="loginForm" autocomplete="off">
+        <div class="form-group">
+          <label for="loginEmail">Email:</label>
+          <input type="email" id="loginEmail" name="email" autocomplete="new-password" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password:</label>
+          <input type="password" id="loginPassword" name="password" autocomplete="new-password" required>
+        </div>
+        <button type="submit" class="form-submit-button">Login</button>
+      </form>
+      <p class="switch-form">Don't have an account? <a href="#" id="switchToSignup">Sign up</a></p>
+    </div>
+  </div>
+
+  <div id="signupModal" class="modal " autocomplete="off">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Sign Up</h2>
+      <form id="signupForm" method="POST" action="/signup">
+
+        <div class="form-group">
+          <label for="signupUsername">Username:</label>
+          <input type="text" id="signupUsername" name="username" autocomplete="new-password" required>
+        </div>
+        <div class="form-group">
+          <label for="signupEmail">Email:</label>
+          <input type="email" id="signupEmail" name="email" autocomplete="new-password" required>
+        </div>
+        <div class="form-group">
+          <label for="signupPassword">Password:</label>
+          <input type="password" id="signupPassword" name="password" autocomplete="new-password" required>
+        </div>
+        <div class="form-group">
+          <label for="signupConfirmPassword">Confirm Password:</label>
+          <input type="password" id="signupConfirmPassword" name="confirmPassword" r autocomplete="new-password"
+            required>
+        </div>
+        <button type="submit" class="form-submit-button">Sign Up</button>
+      </form>
+      <p class="switch-form">Already have an account? <a href="#" id="switchToLogin">Login</a></p>
+    </div>
+  </div>
+
+
+  <script src="script.js"></script>
+  <script src="authUI.js"></script>
+
+
+
+
+</body>
+
+</html>

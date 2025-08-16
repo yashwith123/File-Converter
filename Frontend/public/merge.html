@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConvertFiles - Merge Files</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="merge.css"> <!-- Assuming your merge-specific CSS is in merge.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <script src="authUI.js"></script>
+
+    <header class="navbar">
+        <a href="index.html" style="text-decoration: none;">
+            <div class="logo">
+                <img src="pic/log.avif" alt="Logo" />
+                <span style="color:#ffffff">OmniConvert</span>
+            </div>
+        </a>
+
+        <nav class="menu">
+            <a href="merge.html" class="active">MERGE</a>
+            <a href="split.html">SPLIT</a>
+            <a href="compress.html">COMPRESS</a>
+            <a href="edit.html">EDIT</a>
+        </nav>
+
+        <div class="user-actions">
+            <a href="#" class="login" id="loginHeaderBtn">Login</a>
+            <a href="#" class="signup" id="signupHeaderBtn">Sign up</a>
+            <div class="grid-icon">⋮⋮<br />⋮⋮</div>
+        </div>
+    </header>
+
+    <main class="container merge-container-page">
+        <section id="mergeFileSection" class="merge-section">
+            <h2>Merge Files</h2>
+            <p>Drag and drop files here, or click to add multiple files to merge.</p>
+
+            <div class="merge-upload-box upload-box">
+                <div class="upload-area">
+                    <div class="upload-icon">➕</div>
+                    <p>Drop files here to merge</p>
+                    <div class="divider">OR</div>
+                    <label class="file-label">
+                        <input type="file" id="mergeFileInput" name="mergeFiles" multiple hidden />
+                        <button type="button" class="file-button" id="chooseMergeFilesBtn">Add Files</button>
+                    </label>
+                </div>
+            </div>
+
+            <div id="mergeFileListContainer" class="file-list-container">
+                <h3>Selected Files:</h3> <!-- Optional: You can keep this heading if you like -->
+                <ul id="mergeFileList">
+                    <!-- Files will be dynamically added here by JavaScript -->
+                </ul>
+            </div>
+
+            <div class="merge-actions">
+                <div class="convert-to-section">
+                    <label class="form-label" for="mergeOutputFormat">Merge To:</label>
+                    <select id="mergeOutputFormat" class="format-options-dropdown">
+                        <option value="pdf">PDF</option>
+                        <!-- Add other relevant merge formats if you support them -->
+                    </select>
+                </div>
+                <button type="button" class="merge-now-button" id="startMergeBtn" disabled>Merge Files Now</button>
+            </div>
+
+            <div id="mergeProgressContainer" class="progress-container" style="display: none;">
+                <p>Merging Files...</p>
+                <div class="progress">
+                    <div class="progress-bar" style="width: 0%;"></div>
+                </div>
+                <p><span id="mergeProgressText">0%</span> Complete</p>
+            </div>
+
+            <div id="mergeSuccessState" class="conversion-success-state" style="display: none;">
+                <i class="fas fa-check-circle"></i>
+                <h4>Merge Successful!</h4>
+                <p>Your merged file is ready for download.</p>
+                <a href="#" class="download-button" id="downloadMergedFileBtn" target="_blank">Download Merged File</a>
+                <button class="convert-another-button" id="mergeMoreFilesBtn">Merge More Files</button>
+            </div>
+
+            <div id="mergeErrorState" class="conversion-error-state" style="display: none;">
+                <i class="fas fa-times-circle"></i>
+                <h4>Merge Failed!</h4>
+                <p>An error occurred during merging. Please try again.</p>
+                <button class="convert-another-button" id="retryMergeBtn">Try Again</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 File Converter. All rights reserved.</p>
+            <p>
+                <a href="#">Privacy Policy</a> |
+                <a href="#">Terms of Service</a> |
+                <a href="#">Contact Us</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Login/Signup Modals -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email:</label>
+                    <input type="email" id="loginEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                </div>
+                <button type="submit" class="form-submit-button">Login</button>
+            </form>
+            <p class="switch-form">Don't have an account? <a href="#" id="switchToSignup">Sign up</a></p>
+        </div>
+    </div>
+
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupUsername">Username:</label>
+                    <input type="text" id="signupUsername" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email:</label>
+                    <input type="email" id="signupEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password:</label>
+                    <input type="password" id="signupPassword" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupConfirmPassword">Confirm Password:</label>
+                    <input type="password" id="signupConfirmPassword" name="confirmPassword" required>
+                </div>
+                <button type="submit" class="form-submit-button">Sign Up</button>
+            </form>
+            <p class="switch-form">Already have an account? <a href="#" id="switchToLogin">Login</a></p>
+        </div>
+    </div>
+
+    <!-- Correct and single JavaScript link at the end of body -->
+    <script defer src="merge-script.js"></script>
+    <script src="authUI.js"></script>
+
+</body>
+
+</html>

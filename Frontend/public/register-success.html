@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Registration Success</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #F8F9FA;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 90%;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .container:hover {
+      transform: translateY(-5px);
+    }
+
+    .checkmark-wrapper {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 20px;
+    }
+
+    .checkmark {
+      width: 100%;
+      height: 100%;
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-miterlimit: 10;
+      fill: none;
+      stroke: #4CAF50;
+      /* A pleasant green */
+      animation: stroke-animation 0.5s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+
+    .checkmark-circle {
+      stroke-dasharray: 166;
+      stroke-dashoffset: 166;
+      stroke-width: 4;
+      stroke-miterlimit: 10;
+      stroke: #4CAF50;
+      fill: #fff;
+      animation: stroke-circle 0.5s ease-in-out forwards;
+    }
+
+    h2 {
+      font-weight: 700;
+      color: #28a745;
+      /* A deeper green for emphasis */
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      padding: 12px 28px;
+      font-size: 1.1rem;
+      background-color: #007BFF;
+      /* A professional blue */
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease-in-out, transform 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+
+    /* Keyframe Animations */
+    @keyframes stroke-animation {
+      0% {
+        stroke-dashoffset: 1000;
+      }
+
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="checkmark-wrapper">
+      <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+        <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+        <path class="checkmark" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+      </svg>
+    </div>
+
+    <h2>You have been successfully registered</h2>
+    <p>Welcome to OmniConvert, <strong id="username">User</strong>!</p>
+    <button class="btn" onclick="gotoWebsite()">Start Converting</button>
+  </div>
+
+  <script>
+    // Step 1: Get the username from the URL
+    const params = new URLSearchParams(window.location.search);
+    const username = params.get("username");
+
+    // Step 2: Display the username on the page
+    document.getElementById('username').textContent = username || 'User';
+
+    // Step 3: Save the username to localStorage
+    if (username) {
+      localStorage.setItem("loggedInUser", username);
+    }
+
+    // Step 4: Redirect to the homepage
+    function gotoWebsite() {
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+
+</html>

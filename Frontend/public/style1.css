@@ -1,0 +1,398 @@
+/* Add to your existing style.css */
+
+/* Adjust the main upload-box to act as a container for different states */
+.upload-box {
+    /* Existing styles */
+    display: flex; /* Ensure it's always a flex container */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    min-height: 280px; /* Give it a minimum height to accommodate content changes smoothly */
+    position: relative; /* For positioning absolute elements if needed */
+    overflow-x: hidden; /* Prevent horizontal scroll, allow vertical */
+    overflow-y: visible; /* Allow content to go beyond vertical bounds */
+}
+
+/* Base styles for all state containers within upload-box */
+.upload-box > div {
+    width: 100%; /* Make sure inner containers fill the width */
+    display: flex; /* Default to flex for vertical stacking of content */
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Spacing between elements */
+    padding: 20px; /* Inner padding */
+    box-sizing: border-box; /* Include padding in width/height */
+}
+
+
+/* Initial State: The .upload-area itself */
+#initialUploadArea {
+    /* This will be the default, so no extra display:flex here unless needed to override */
+    /* Ensure existing .upload-area styles are compatible */
+}
+
+.upload-area .upload-icon {
+    font-size: 3.5rem; /* Slightly larger icon based on screenshot */
+}
+.upload-area p {
+    margin-bottom: 0.5rem;
+}
+.upload-area .divider {
+    margin: 1rem 0;
+    color: #888; /* A bit darker for better contrast */
+}
+.upload-area .file-label .file-button {
+    background: #1d72ff; /* Original blue */
+}
+.container {
+    /* ... existing styles ... */
+    overflow: visible; /* Or overflow-y: visible; */
+}
+
+/* Selected File & Convert To State (This will be dynamically created/shown) */
+.conversion-options-state {
+    /* Inherits from .upload-box > div for general layout */
+    padding: 0; /* No extra padding here as content has its own */
+    justify-content: flex-start; /* Align content to the top */
+    gap: 0; /* Manage gaps with specific child margins */
+}
+
+.selected-file-container {
+    background: #444;
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 90%; /* Match width from image */
+    max-width: 400px; /* Constrain max width */
+    margin-bottom: 20px; /* Space before "Convert To" */
+    box-sizing: border-box;
+}
+
+.selected-file-container .file-icon {
+    font-size: 1.5rem;
+    color: #58a6ff;
+}
+.selected-file-container .file-info {
+    flex-grow: 1; /* Take up available space */
+    color: #fff;
+    font-size: 0.95rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Hide overflow for long names */
+}
+.selected-file-container .file-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add ellipsis for long names */
+    font-weight: bold;
+}
+.selected-file-container .file-size {
+    color: #ccc;
+    font-size: 0.85rem;
+}
+
+.selected-file-container .remove-file {
+    cursor: pointer;
+    color: #ccc;
+    font-size: 1.2rem;
+    padding: 0 5px;
+}
+.selected-file-container .remove-file:hover {
+    color: #e53935;
+}
+
+/* Convert To Section */
+.convert-to-text {
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 10px; /* Space before custom select */
+}
+
+.custom-select-wrapper {
+    position: relative;
+    width: 90%;
+    max-width: 300px;
+    margin-bottom: 25px; /* Space before convert button */
+}
+
+.selected-format-display {
+    background: #333;
+    color: white;
+    border: 1px solid #555;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    outline: none; /* Remove default focus outline */
+}
+
+.selected-format-display.active {
+    border-color: #1d72ff; /* Highlight when active */
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.selected-format-display .arrow-icon {
+    margin-left: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.selected-format-display.active .arrow-icon {
+    transform: rotate(180deg);
+}
+
+.format-options-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #222;
+    border: 1px solid #555;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.4);
+    z-index: 20;
+    max-height: 250px; /* Limit height and allow scroll */
+    overflow-y: auto;
+    padding: 10px;
+    color: #fff;
+    display: none; /* Hidden by default */
+}
+
+/* Style for scrollbar in format-options-dropdown */
+.format-options-dropdown::-webkit-scrollbar {
+    width: 8px;
+}
+.format-options-dropdown::-webkit-scrollbar-track {
+    background: #333;
+    border-radius: 10px;
+}
+.format-options-dropdown::-webkit-scrollbar-thumb {
+    background: #58a6ff;
+    border-radius: 10px;
+}
+.format-options-dropdown::-webkit-scrollbar-thumb:hover {
+    background: #1d72ff;
+}
+
+
+.format-category {
+    margin-bottom: 10px; /* Smaller margin */
+}
+
+.format-category:last-child {
+    margin-bottom: 0; /* No margin for last category */
+}
+
+.format-category h3 {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding-left: 5px; /* Indent category title */
+}
+
+.format-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px; /* Smaller gap */
+}
+
+.format-option {
+    background: #3a3a3a;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem; /* Slightly smaller text */
+    transition: background-color 0.2s ease;
+    border: 1px solid transparent; /* For selected state border */
+}
+
+.format-option:hover {
+    background: #58a6ff;
+    color: #fff;
+}
+
+.format-option.selected {
+    background: #1d72ff;
+    color: white;
+    font-weight: bold;
+    border-color: #1d72ff; /* Optional: border for emphasis */
+}
+
+.convert-now-button-container {
+    width: 90%;
+    max-width: 400px;
+    margin-top: 10px; /* Space below custom select wrapper */
+}
+.convert-now-button {
+    width: 100%;
+    background: #1d72ff;
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.convert-now-button:hover:not(:disabled) {
+    background: #155ccc;
+}
+
+.convert-now-button:disabled {
+    background: #666;
+    cursor: not-allowed;
+}
+
+/* Uploading/Converting State */
+.uploading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px; /* More space for visual elements */
+    padding-top: 40px; /* Push content down slightly */
+    padding-bottom: 40px;
+}
+
+.uploading-state .selected-file-container {
+    margin-bottom: 0; /* Remove bottom margin here */
+}
+
+.progress-info {
+    color: #fff;
+    font-size: 1.1rem;
+    margin-top: -10px; /* Pull it closer to progress bar */
+}
+
+.progress-bar-container {
+    width: 90%;
+    max-width: 400px;
+    background-color: #444;
+    border-radius: 5px;
+    height: 10px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0%; /* Will be controlled by JS */
+    background-color: #1d72ff;
+    border-radius: 5px;
+    transition: width 0.3s ease-out; /* Smooth animation for progress */
+}
+
+.uploading-button {
+    width: 90%;
+    max-width: 400px;
+    background: #555; /* Dimmed background */
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    cursor: not-allowed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.uploading-spinner {
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid #fff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* Conversion Success State */
+.success-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
+    padding: 20px;
+    background: #2a2a2a; /* Darker background for success box */
+    border-radius: 10px;
+    width: 90%;
+    max-width: 450px;
+    color: white;
+}
+
+.success-state .success-icon {
+    font-size: 3rem;
+    color: #4CAF50; /* Green checkmark */
+}
+
+.success-state h2 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+.success-state p {
+    font-size: 1rem;
+    color: #ccc;
+    margin-bottom: 15px;
+}
+
+.success-state .download-button {
+    background: #4CAF50; /* Green download button */
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    width: 100%;
+    margin-bottom: 10px; /* Space between buttons */
+}
+.success-state .download-button:hover {
+    background: #45a049;
+}
+
+.success-state .convert-another-button {
+    background: #555;
+    padding: 10px 20px;
+    font-size: 1rem;
+    width: 100%;
+}
+.success-state .convert-another-button:hover {
+    background: #666;
+}
+
+/* Basic Responsiveness adjustments */
+@media (max-width: 480px) {
+    .selected-file-container {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: 5px;
+    }
+    .selected-file-container .remove-file {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    .format-option {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+    .convert-now-button, .uploading-button, .download-button, .convert-another-button {
+        font-size: 1rem;
+        padding: 0.7rem 1.2rem;
+    }
+}

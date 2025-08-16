@@ -1,0 +1,265 @@
+/* --- Merge File Section Styles --- */
+
+/* Base style for the merge section, similar to upload-box-container */
+.merge-section {
+    background-color: #2a2c2a; /* Darker grey background */
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    margin-top: 50px;
+    color: #f0f0f0;
+    text-align: center; /* Center the content for a cleaner look */
+}
+
+.merge-section h2 {
+    color: #fff;
+    margin-bottom: 15px;
+    font-size: 2em;
+}
+
+.merge-section p {
+    color: #ccc;
+    margin-bottom: 25px;
+}
+
+/* Inherit upload-box styles, but adjust as needed */
+.merge-upload-box {
+    background-color: #5a5a5a;
+    border: 2px dashed #888;
+    border-radius: 10px;
+    padding: 30px 20px; /* Slightly less padding than main converter */
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    margin-bottom: 25px; /* Space below the merge upload area */
+}
+
+.merge-upload-box:hover {
+    background-color: #6a6a6a;
+    border-color: #bbb;
+}
+
+.merge-upload-box .upload-icon {
+    font-size: 60px; /* Adjust size of the plus icon */
+    color: #4285f4; /* Blue color for the icon */
+    margin-bottom: 15px;
+    line-height: 1; /* Ensure vertical centering */
+}
+
+/* File List Container - for displaying selected files */
+.file-list-container {
+    background-color: #333; /* Dark background for the list */
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    max-height: 300px; /* Limit height for scroll if many files */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #555;
+}
+
+.file-list-container h5 {
+    color: #f0f0f0;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+/* Individual File Item in the list */
+.merge-file-item {
+    background-color: #444; /* Slightly lighter than container background */
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95em;
+    color: #ccc;
+    cursor: grab; /* Indicates draggable */
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.merge-file-item:hover {
+    background-color: #555;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.merge-file-item.dragging { /* Class added by JS when dragging */
+    opacity: 0.7;
+    border: 2px dashed #4285f4;
+}
+
+.merge-file-item span {
+    flex-grow: 1; /* Allows filename to take space */
+    text-align: left;
+}
+
+.merge-file-item .file-size {
+    font-size: 0.85em;
+    color: #aaa;
+    margin-left: 15px;
+}
+
+.merge-file-item .remove-file-btn {
+    background: none;
+    border: none;
+    color: #ff6666; /* Red for remove */
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: color 0.2s ease;
+}
+
+.merge-file-item .remove-file-btn:hover {
+    color: #ff3333;
+}
+
+/* Merge Actions Section */
+.merge-actions {
+    display: flex;
+    flex-direction: column; /* Stack dropdown and button */
+    align-items: center;
+    gap: 20px; /* Space between elements */
+    margin-top: 30px;
+}
+
+.merge-actions .convert-to-section {
+    width: 100%; /* Take full width of parent */
+    max-width: 300px; /* Limit width for dropdown */
+    text-align: left; /* Align label and dropdown to left */
+}
+
+.merge-actions .form-label {
+    margin-bottom: 5px;
+}
+
+/* Merge Now Button */
+.merge-now-button {
+    background-color: #5b7bdc; /* Blue color */
+    border-color: #5b7bdc;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%; /* Make button full width up to max */
+    max-width: 300px;
+}
+
+.merge-now-button:hover:not(:disabled) {
+    background-color: #4a6abe;
+    border-color: #4a6abe;
+    transform: translateY(-2px);
+}
+
+.merge-now-button:disabled {
+    background-color: #888;
+    border-color: #888;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* --- Merge Progress/Success/Error States --- */
+
+/* Re-use existing progress styles */
+#mergeProgressContainer p {
+    color: #f0f0f0;
+    margin-top: 15px;
+}
+
+/* Error State (New, based on success state) */
+.conversion-error-state {
+    background-color: #dc3545; /* Red background for error */
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    margin-top: 25px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.conversion-error-state .fa-times-circle {
+    color: #ffcccc; /* Lighter red for icon */
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.conversion-error-state h4 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.conversion-error-state p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+.conversion-error-state .convert-another-button { /* Re-use existing button style */
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.conversion-error-state .convert-another-button:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+/* Ensure Font Awesome (for icons) is linked in your HTML head if not already */
+/* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> */
+
+/* Media Queries for responsiveness (adjust as needed) */
+@media (max-width: 768px) {
+    .merge-section {
+        padding: 20px;
+    }
+    .merge-actions {
+        flex-direction: column;
+    }
+    .merge-actions .convert-to-section,
+    .merge-now-button {
+        max-width: 100%;
+    }
+}
+/* In your style.css file */
+
+.download-button {
+    /* Current styling (likely blue text, underline) */
+    color: blue; /* Or whatever color you want the text to be */
+    text-decoration: underline; /* To keep the underline, or 'none' to remove it */
+    font-weight: bold; /* Make the text bold */
+    font-size: 16px; /* Adjust font size */
+
+    /* If you want it to look more like a traditional button */
+    display: inline-block; /* Essential for padding, margin, width/height */
+    padding: 10px 20px; /* Spacing inside the button */
+    margin: 10px; /* Spacing around the button */
+    background-color: #007bff; /* A blue background */
+    color: white; /* White text */
+    border: none; /* Remove default button border */
+    border-radius: 5px; /* Slightly rounded corners */
+    cursor: pointer; /* Indicate it's clickable */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* Remove underline for a button look */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+.download-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* If you want it side-by-side with "Merge More Files" button */
+.conversion-success-state button,
+.conversion-success-state a.download-button {
+    margin-right: 10px; /* Add some space between them */
+}

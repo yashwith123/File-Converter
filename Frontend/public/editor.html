@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Editor - Convertio</title>
+   <link rel="stylesheet" href="/style.css">
+   <link rel="stylesheet" href="/style1.css">
+     <link rel="stylesheet" href="editor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.mjs" type="module"></script>
+    
+    <style>
+        /* public/style.css */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #f2f2f2;
+    background-color: #2e2e2e;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.editor-main-content {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: calc(100vh - 0px);
+    box-sizing: border-box;
+    overflow: hidden;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #333;
+}
+
+
+.editor-toolbar {
+    flex-shrink: 0;
+    margin-bottom: 20px;
+    background-color: #444;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.page-navigation-controls {
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 10px;
+    margin-left: 450px;
+    background-color: #444;
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    color: #f2f2f2;
+    font-size: 1.1em;
+}
+
+.editor-workspace {
+    display: flex;
+    flex-grow: 1;
+   
+    gap: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    background-color: #2e2e2e;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    padding:5px 20px;
+}
+
+
+.sidebar.left-sidebar {
+    width: 120px;
+    flex-shrink: 0;
+    background-color: #444;
+    padding: 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column; /* This is key: thumbnails stack vertically */
+    align-items: center; /* This centers thumbnails horizontally within the sidebar */
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    flex-grow: 1; /* Allows sidebar to take available vertical space */
+    overflow-y: auto; /* Adds scrollbar when content overflows vertically */
+}
+.sidebar.left-sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar.left-sidebar::-webkit-scrollbar-track {
+    background: #2a2a2a;
+    border-radius: 10px;
+}
+
+.sidebar.left-sidebar::-webkit-scrollbar-thumb {
+    background-color: #666;
+    border-radius: 10px;
+    border: 2px solid #2a2a2a;
+}
+
+.sidebar.left-sidebar::-webkit-scrollbar-thumb:hover {
+    background-color: #7B3FEF;
+}
+
+.loading-message {
+    text-align: center;
+    padding: 20px;
+    color: #ccc;
+    font-size: 0.9em;
+}
+
+.loading-message i {
+    margin-bottom: 10px;
+}
+
+#pageThumbnails {
+    width: 100%;
+}
+
+.thumbnail {
+    width: 120px; /* The desired display width of each thumbnail */
+    height: auto; /* CRUCIAL: Let the content define the height to preserve aspect ratio */
+    margin-bottom: 10px;
+    background-color: #3a3a3a;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    /* Ensure no max-height or min-height here that would squash the content */
+}
+
+.thumbnail.active {
+    border-color: #e74c3c;
+    box-shadow: 0 0 8px rgba(231, 76, 60, 0.5);
+}
+
+.thumbnail canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid #555;
+}
+
+.thumbnail span {
+    font-size: 0.8em;
+    color: #ccc;
+    margin-top: 5px;
+}
+
+.main-editor-area {
+    flex-grow: 1;
+    background-color: #555;
+    padding: 10px 20px; /* Changed from 20px to 10px 20px to reduce top/bottom padding */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+}
+
+.sidebar.right-sidebar {
+    width: 80px;
+    flex-shrink: 0;
+    background-color: #444;
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+    overflow-y: auto;
+}
+
+/* Toolbar button specific styles, previously provided */
+.editor-toolbar button {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.editor-toolbar button:hover {
+    background-color: #7B3FEF;
+    transform: translateY(-1px);
+}
+
+.editor-toolbar button:active {
+    transform: translateY(0);
+}
+
+.editor-toolbar .separator {
+    width: 1px;
+    background-color: #666;
+    height: 25px;
+    margin: 0 10px;
+}
+
+.editor-toolbar .download-btn {
+    background-color: #e74c3c;
+}
+
+.editor-toolbar .download-btn:hover {
+    background-color: #c0392b;
+}
+    </style>
+
+    
+</head>
+<body>
+    <header class="navbar">
+  <a href="index.html" style="text-decoration: none;">
+  <div class="logo">
+    <img src="pic/logo.png" alt="Logo" />
+    <span style="color:#2a2a2a">Convertio</span>
+  </div>
+</a>
+
+  <nav class="menu">
+   <a href="merge.html">MERGE</a>
+    <a href="split.html">SPLIT </a>
+    <a href="compress.html">COMPRESS </a>
+    <a href="edit.html">EDIT▾</a>
+    <!-- <a href="#">ALL PDF TOOLS ▾</a> -->
+  </nav>
+
+  <div class="user-actions">
+    <a href="#" class="login">Login</a>
+    <a href="#" class="signup">Sign up</a>
+    <div style="color:#2a2a2a" class="grid-icon">⋮⋮<br/>⋮⋮</div>
+  </div>
+ 
+</header>
+
+    <main class="editor-main-content">
+        <div class="editor-toolbar">
+            <button id="annotateBtn" title="Annotate"><i class="fas fa-highlighter"></i> Annotate</button>
+            <button id="editBtn" title="Edit"><i class="fas fa-edit"></i> Edit</button>
+            <div class="separator"></div>
+            <button id="addTextBtn" title="Add Text"><i class="fas fa-font"></i> Text</button>
+            <button id="drawBtn" title="Draw"><i class="fas fa-pencil-alt"></i> Draw</button>
+            <button id="addImageBtn" title="Add Image"><i class="fas fa-image"></i> Image</button>
+            <button id="cropBtn" title="Crop"><i class="fas fa-crop-alt"></i> Crop</button>
+            <button id="highlightBtn" title="Highlight"><i class="fas fa-highlighter"></i> Highlight</button>
+            <div class="separator"></div>
+            <button id="undoBtn" title="Undo"><i class="fas fa-undo"></i> Undo</button>
+            <button id="redoBtn" title="Redo"><i class="fas fa-redo"></i> Redo</button>
+            <button id="downloadEditedPdfBtn" class="download-btn" title="Download Edited PDF"><i class="fas fa-download"></i> Download</button>
+        </div>
+
+        <div class="editor-workspace">
+            <div class="sidebar left-sidebar" id="pageThumbnails">
+                <div class="loading-message" id="thumbnailsLoading" style="text-align: center; padding: 20px; color: #ccc;">
+                    <i class="fas fa-spinner fa-spin fa-2x"></i><br>Loading thumbnails...
+                </div>
+            </div>
+
+            <div class="main-editor-area">
+                <canvas id="pdfEditorCanvas"></canvas>
+                <div id="mainCanvasLoading" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; flex-direction: column; color: white; display: none;">
+                    <i class="fas fa-spinner fa-spin fa-3x"></i>
+                    <p style="margin-top: 15px;">Loading PDF page...</p>
+                </div>
+                <div id="mainCanvasError" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; flex-direction: column; color: red; display: none;">
+                    <i class="fas fa-exclamation-triangle fa-3x"></i>
+                    <p style="margin-top: 15px;">Error loading page.</p>
+                </div>
+            </div>
+
+            <div class="sidebar right-sidebar">
+                <p style="text-align: center; color: #ccc;">Tool Properties / Layers</p>
+            </div>
+        </div>
+
+        <div class="page-navigation-controls">
+            <button id="prevPageBtn"><i class="fas fa-chevron-up"></i></button>
+            <span id="currentPageNum">1</span> / <span id="totalPagesNum">1</span>
+            <button id="nextPageBtn"><i class="fas fa-chevron-down"></i></button>
+            <div class="zoom-controls">
+                <button id="zoomOutBtn"><i class="fas fa-minus-circle"></i></button>
+                <span id="zoomLevel">100%</span>
+                <button id="zoomInBtn"><i class="fas fa-plus-circle"></i></button>
+            </div>
+            <button id="fitToWidthBtn" title="Fit to Width"><i class="fas fa-arrows-alt-h"></i></button>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 PDF Converter. All rights reserved.</p>
+        <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Contact Us</a></p>
+    </footer>
+
+  <script src="/editor.js" type="module"></script>
+   
+</body>
+</html>

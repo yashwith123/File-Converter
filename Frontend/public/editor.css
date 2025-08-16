@@ -1,0 +1,218 @@
+
+
+.editor-toolbar button {
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .editor-toolbar button:hover {
+            background-color: #7B3FEF; /* Hover effect */
+            transform: translateY(-1px);
+        }
+
+        .editor-toolbar button:active {
+            transform: translateY(0);
+        }
+
+        .editor-toolbar .separator {
+            width: 1px;
+            background-color: #666;
+            height: 25px;
+            margin: 0 10px;
+            margin-top: 110px;
+        }
+
+        .editor-toolbar .download-btn {
+            background-color: #e74c3c; /* Red download button */
+        }
+
+        .editor-toolbar .download-btn:hover {
+            background-color: #c0392b;
+        }
+
+       
+
+        .sidebar {
+            background-color: #444; /* Darker sidebar background */
+            padding: 15px;
+            overflow-y: auto; /* Enable scrolling for thumbnails */
+            scrollbar-width: thin; /* Firefox */
+            scrollbar-color: #666 #333; /* Firefox */
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 8px; /* Webkit browsers */
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: #333; /* Webkit browsers */
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: #666;
+            border-radius: 10px;
+            border: 2px solid #333;
+        }
+
+
+        .left-sidebar { /* Page Thumbnails */
+            flex-basis: 150px; /* Fixed width for thumbnails */
+            min-width: 150px;
+            max-width: 200px; /* Max width if screen is very wide */
+            border-right: 1px solid #555;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .thumbnail {
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            overflow: hidden;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            text-align: center;
+            padding-bottom: 5px;
+            background-color: #3a3a3a; /* Thumbnail background */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .thumbnail:hover {
+            border-color: #7B3FEF;
+            box-shadow: 0 0 10px rgba(123, 63, 239, 0.5);
+        }
+
+        .thumbnail.active {
+            border-color: #e74c3c; /* Active thumbnail border */
+            box-shadow: 0 0 15px rgba(231, 76, 60, 0.7);
+        }
+
+        .thumbnail canvas {
+            display: block; /* Remove extra space below canvas */
+            width: 100%;
+            height: auto;
+        }
+
+        .thumbnail span {
+            font-size: 0.8em;
+            color: #ccc;
+            margin-top: 5px;
+            display: block;
+        }
+
+
+        #pdfEditorCanvas {
+            background-color: white; /* PDF content will be rendered on white */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7); /* Shadow around the PDF */
+            display: block; /* Remove extra space below canvas */
+        }
+
+        .right-sidebar { /* For properties/layers, if you implement them */
+            flex-basis: 250px;
+            min-width: 200px;
+            max-width: 300px;
+            border-left: 1px solid #555;
+        }
+
+        .page-navigation-controls {
+            background-color: #444; /* Darker background for controls */
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            width: fit-content; /* Fit to content width */
+            justify-content: center;
+        }
+
+        .page-navigation-controls button {
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.2s ease;
+        }
+
+        .page-navigation-controls button:hover {
+            background-color: #7B3FEF;
+        }
+
+        .page-navigation-controls span {
+            font-size: 1.1em;
+            color: #f2f2f2;
+        }
+
+        .zoom-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 15px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .editor-workspace {
+                flex-direction: column; /* Stack sidebars and main area vertically */
+                max-width: 90%; /* Adjust max width */
+                overflow-y: hidden; /* Allow main-editor-area to scroll, not the whole workspace */
+            }
+            .left-sidebar, .right-sidebar {
+                flex-basis: auto; /* Auto height */
+                min-width: unset;
+                max-width: 100%;
+                border: none;
+                border-bottom: 1px solid #555; /* Separator for stacked sidebars */
+                padding: 10px;
+                flex-direction: row; /* Layout thumbnails horizontally for better use of space */
+                overflow-x: auto; /* Enable horizontal scroll for thumbnails */
+                white-space: nowrap; /* Prevent wrapping of thumbnails */
+            }
+            .left-sidebar .thumbnail {
+                display: inline-block; /* Make thumbnails display inline for horizontal scroll */
+                vertical-align: top;
+                margin-right: 10px;
+                width: 100px; /* Fixed width for horizontal thumbnails */
+            }
+            .main-editor-area {
+                height: 60vh; /* Give fixed height on smaller screens to ensure scroll */
+                min-height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .editor-toolbar {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px;
+                width: 100%;
+            }
+            .editor-toolbar button {
+                width: 100%; /* Full width buttons on small screens */
+            }
+            .editor-toolbar .separator {
+                display: none;
+            }
+            .page-navigation-controls {
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+            }
+            .zoom-controls {
+                margin: 10px 0;
+            }
+        }
